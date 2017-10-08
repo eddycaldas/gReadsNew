@@ -1,4 +1,4 @@
-const router = require("Express").Router()
+const router = require("express").Router()
 const queries = require("../db/queries")
 
 const table = "author"
