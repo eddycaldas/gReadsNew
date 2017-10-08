@@ -10,10 +10,12 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded())
 
 const routes = {
-  book: require("./routes/book")
+  book: require("./routes/book"),
+  author: require("./routes/author"),
 }
 
 app.use("/book", routes.book)
+app.use("/author", routes.author)
 
 app.listen(PORT, () =>
 console.log(`listeninig on ${PORT}`));
