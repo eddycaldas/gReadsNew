@@ -5,7 +5,7 @@ const table = "author"
 
 router.post("/", (req, res) => {
   queries[table].create(req.body)
-  .then((book) => res.json(book))
+  .then((author) => res.json(author))
 })
 
 
@@ -13,17 +13,22 @@ router.get("/:id", (req, res) => {
   var withBooks = req.query.withBooks
   var query = queries[table].read(req.params.id)
   if (withBooks) {
-    query
-      .join("author_book", "author_id", "author.id")
-      .join("book", "book_id", "book.id")
-  }
+    queries.author_book.getBooksForAuthor(req.params.id)
+    .then((books) => {
+      return query.then((author) => {
+        author.books = books
+        res.json(author)
+      })
+    })
+  } else {
   query
-  .then((book) => res.json(book))
+    .then((author) => res.json(author))
+ }
 })
 
 router.put("/:id", (req, res) => {
   queries[table].update(req.params.id, req.body)
-  .then((book) => res.send(200))
+  .then((author) => res.send(200))
 })
 
 router.delete("/:id", (req, res) => {
