@@ -10,8 +10,10 @@ const routes = {
   author: require("./routes/author"),
 }
 
+app.use(express.static('public'))
 app.use("/book", routes.book)
 app.use("/author", routes.author)
 
 app.listen(PORT, () =>
 console.log(`listeninig on ${PORT}`));
+console.log('test');
